@@ -52,18 +52,32 @@ FROM city
 SELECT *
 FROM customer
 
+SELECT *
+FROM address
+
 SELECT  first_name, last_name, city
 FROM customer
 FULL JOIN city 
 ON customer = city
 WHERE city = 'Nepal'
 
+SELECT  city_id, city
+FROM city
+WHERE city = 'Nepal'
+GROUP BY city_id, city;
+
+
+
 
 -- 5. Which staff member had the most
 -- transactions?
-SELECT *
+SELECT first_name, last_name, staff.staff_id, COUNT(payment_id)
 FROM staff
-
+INNER JOIN payment
+ON payment.staff_id = staff.staff_id
+GROUP BY first_name, last_name, staff.staff_id
+ORDER BY COUNT(payment_id) DESC
+FETCH FIRST ROW ONLY; 
 
 -- 6. How many movies of each rating are
 -- there?
